@@ -1,0 +1,75 @@
+---
+import { formatDate, getReadingTime } from '../../utils/blog';
+
+export interface Props {
+  title: string;
+  description?: string;
+  pubDate: Date;
+  author?: string;
+  content?: string;
+  category?: string;
+}
+
+const { title, description, pubDate, author, content = '', category } = Astro.props;
+const readingTime = content ? getReadingTime(content) : undefined;
+const displayCategory = category || 'Artigo';
+const displayAuthor = author || 'Altivo Tecnologia';
+const formattedDate = formatDate(pubDate, 'long');
+const compactDate = new Intl.DateTimeFormat('pt-BR', {
+  day: '2-digit',
+  month: '2-digit',
+  year: 'numeric',
+}).format(pubDate);
+const separatorIndex = title.lastIndexOf(' - ');
+const titleBeforeSeparator = separatorIndex >= 0 ? title.slice(0, separatorIndex) : '';
+const lastWordIndex = titleBeforeSeparator.lastIndexOf(' ');
+const titleLead = titleBeforeSeparator.slice(0, lastWordIndex);
+const titleWithDash = titleBeforeSeparator.slice(lastWordIndex + 1) + ' -';
+const titleEnd = title.slice(separatorIndex + 3);
+---
+
+<header class="bg-surface pt-20 text-ink md:pt-36">
+  <div class="mx-auto max-w-7xl px-6 pb-10 pt-9 md:pb-20 md:pt-16">
+    <div class="flex flex-col gap-6 md:gap-10">
+      <h1
+        class="font-display text-[clamp(2.75rem,10vw,4rem)] font-bold leading-[0.98] tracking-[-0.03em] text-balance md:text-[clamp(3.2rem,7.5vw,5rem)] md:leading-[0.94]"
+      >
+        {
+          separatorIndex >= 0 && lastWordIndex >= 0 ? (
+            <>
+              {titleLead} <span class="whitespace-nowrap">{titleWithDash}</span> {titleEnd}
+            </>
+          ) : (
+            title
+          )
+        }
+      </h1>
+      {
+        description && (
+          <p class="max-w-[55rem] text-lg leading-[1.55] text-copy-strong md:text-2xl md:leading-[1.5]">
+            {description}
+          </p>
+        )
+      }
+    </div>
+
+    <div
+      class="mt-10 flex flex-wrap items-center gap-x-3 gap-y-1 border-t border-line pt-4 text-sm text-copy md:mt-20 md:gap-y-2 md:pt-5"
+    >
+      <span class="w-full font-semibold text-ink sm:w-auto">{displayAuthor}</span>
+      <span aria-hidden="true" class="hidden sm:inline">·</span>
+      <time class="sm:hidden" datetime={pubDate.toISOString()}>{compactDate}</time>
+      <time class="hidden sm:inline" datetime={pubDate.toISOString()}>{formattedDate}</time>
+      {
+        readingTime && (
+          <>
+            <span aria-hidden="true">·</span>
+            <span>{readingTime} min de leitura</span>
+          </>
+        )
+      }
+      <span aria-hidden="true" class="hidden sm:inline">·</span>
+      <span class="hidden font-medium sm:inline">{displayCategory}</span>
+    </div>
+  </div>
+</header>

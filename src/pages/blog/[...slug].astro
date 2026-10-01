@@ -1,0 +1,84 @@
+---
+// src/pages/blog/[...slug].astro
+import { type CollectionEntry, getCollection, render } from 'astro:content';
+import { Image } from 'astro:assets';
+import BlogLayout from '../../layouts/BlogLayout.astro';
+import BlogPostHero from '../../components/blog/BlogPostHero.astro';
+import BlogContent from '../../components/blog/BlogContent.astro';
+import BlogPostFooter from '../../components/blog/BlogPostFooter.astro';
+import BlogRelated from '../../components/blog/BlogRelated.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: post,
+  }));
+}
+
+type Props = CollectionEntry<'blog'>;
+
+const post = Astro.props;
+const heroImage = post.data.heroImage;
+const socialImage = heroImage ? (typeof heroImage === 'string' ? heroImage : heroImage.src) : null;
+const { Content } = await render(post);
+
+const allPosts = await getCollection('blog');
+---
+
+<BlogLayout
+  title={post.data.title}
+  description={post.data.description}
+  image={socialImage}
+  type="article"
+  publishedTime={post.data.pubDate}
+  modifiedTime={post.data.updatedDate}
+  author={post.data.author}
+>
+  <BlogPostHero
+    title={post.data.title}
+    description={post.data.description}
+    pubDate={post.data.pubDate}
+    author={post.data.author}
+    content={post.body}
+  />
+
+  <div class="py-10 md:py-24">
+    <article class="max-w-[800px] mx-auto px-6">
+      <BlogContent>
+        {
+          heroImage && (
+            <figure class="blog-visual-card">
+              {typeof heroImage === 'string' ? (
+                <img
+                  src={heroImage}
+                  alt={post.data.heroImageAlt || ''}
+                  loading="eager"
+                  fetchpriority="high"
+                  decoding="async"
+                />
+              ) : (
+                <Image
+                  src={heroImage}
+                  alt={post.data.heroImageAlt || ''}
+                  loading="eager"
+                  fetchpriority="high"
+                  decoding="async"
+                  format="webp"
+                  widths={[800, 1200, 1600]}
+                  sizes="(max-width: 832px) 100vw, 800px"
+                  quality={85}
+                />
+              )}
+            </figure>
+          )
+        }
+        <Content />
+      </BlogContent>
+
+      <BlogPostFooter />
+    </article>
+  </div>
+
+  <BlogRelated currentPost={post} allPosts={allPosts} limit={3} title="Continue a leitura" />
+</BlogLayout>

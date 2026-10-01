@@ -1,0 +1,58 @@
+---
+import { ArrowLeft } from '@lucide/astro';
+import Layout from '../layouts/Layout.astro';
+
+const title = 'Página não encontrada | altivo tecnologia';
+---
+
+<Layout title={title} description="A página que você procura não foi encontrada." noindex>
+  <main
+    id="conteudo-principal"
+    tabindex="-1"
+    class="grid min-h-[100svh] place-items-center bg-canvas px-6 py-16 text-center text-on-canvas"
+  >
+    <div class="w-full max-w-2xl">
+      <p
+        class="altivo-wordmark mt-12 text-7xl font-bold leading-none tracking-tight md:text-8xl"
+        aria-hidden="true"
+      >
+        <span class="text-primary">.</span> 404 <span class="text-primary">.</span>
+      </p>
+
+      <h1 class="altivo-wordmark mt-5 text-2xl font-bold leading-tight md:text-3xl">
+        Página não encontrada.
+      </h1>
+
+      <div
+        class="mx-auto mt-7 w-fit max-w-full border border-line-strong px-4 py-2 font-mono text-sm text-on-canvas-copy"
+        data-requested-path-group
+        hidden
+      >
+        Caminho: <code data-requested-path></code>
+      </div>
+
+      <a
+        href="/"
+        class="mt-9 inline-flex items-center gap-3 border-b border-line-inverse pb-2 text-sm font-bold uppercase tracking-[0.12em] transition-colors hover:border-primary hover:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+      >
+        <ArrowLeft size={20} aria-hidden="true" /> Voltar ao início
+      </a>
+    </div>
+  </main>
+
+  <script>
+    const pathLabel = document.querySelector<HTMLElement>('[data-requested-path]');
+    const pathGroup = document.querySelector<HTMLElement>('[data-requested-path-group]');
+
+    if (pathLabel && pathGroup) {
+      pathLabel.textContent = window.location.pathname;
+      pathGroup.hidden = false;
+    }
+  </script>
+</Layout>
+
+<style>
+  .altivo-wordmark {
+    font-family: var(--font-display);
+  }
+</style>

@@ -1,0 +1,49 @@
+---
+import Container from '../shared/Container.astro';
+
+const services = [
+  {
+    title: 'Software personalizado',
+    description: 'Criamos e evoluímos programas focados em automação, operação e crescimento.',
+  },
+  {
+    title: 'Automações pontuais',
+    description:
+      'Desenhamos fluxos para reduzir trabalho manual, conectar etapas e dar previsibilidade.',
+  },
+  {
+    title: 'Integrações e dados',
+    description:
+      'Organizamos sistemas, canais e informações para que você consiga melhorar seu processo.',
+  },
+];
+---
+
+<section id="servicos" class="scroll-mt-24 py-20 md:py-28" aria-labelledby="servicos-titulo">
+  <Container>
+    <div class="mb-12 grid gap-8 md:grid-cols-[1.5fr_0.8fr] md:items-start md:gap-12">
+      <h2
+        id="servicos-titulo"
+        class="max-w-3xl text-4xl font-bold leading-[1.02] tracking-tight text-on-canvas md:text-5xl lg:text-5xl"
+      >
+        Sua empresa funcionando com menos atrito<span class="text-primary">.</span>
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 border border-line-dark md:grid-cols-3">
+      {
+        services.map((service, index) => (
+          <article
+            class:list={[
+              'p-6 md:p-8 lg:p-10',
+              index < services.length - 1 && 'border-b border-line-dark md:border-r md:border-b-0',
+            ]}
+          >
+            <h3 class="altivo-display text-2xl font-bold text-on-canvas">{service.title}</h3>
+            <p class="altivo-muted mt-4 max-w-[38ch] leading-relaxed">{service.description}</p>
+          </article>
+        ))
+      }
+    </div>
+  </Container>
+</section>

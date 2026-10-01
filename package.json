@@ -1,0 +1,50 @@
+{
+  "name": "altivo-landing",
+  "private": true,
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Altivo Tecnologia website built with Astro",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview --host",
+    "astro": "astro",
+    "lint": "eslint . --max-warnings=0",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "check:types": "astro check",
+    "check:size": "node scripts/check-source-size.mjs",
+    "quality": "pnpm run check:size && pnpm run lint && pnpm run check:design && pnpm run check:duplicates && pnpm run test:quality && pnpm run format:check && pnpm run check:types",
+    "check:design": "node scripts/check-design-system.mjs",
+    "check:duplicates": "node scripts/check-duplicates.mjs",
+    "test:quality": "node --test scripts/tests/*.test.mjs",
+    "audit:dependencies": "pnpm audit --audit-level=low",
+    "check:secrets": "secretlint --secretlintignore .gitignore \"**/*\""
+  },
+  "dependencies": {
+    "@fontsource-variable/source-sans-3": "5.3.0",
+    "@lucide/astro": "1.48.0",
+    "@tailwindcss/vite": "4.3.3",
+    "astro": "7.3.5",
+    "sharp": "0.35.5",
+    "tailwindcss": "4.3.3"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.10",
+    "@eslint/js": "9.39.5",
+    "@secretlint/secretlint-rule-preset-recommend": "13.0.5",
+    "eslint": "10.11.0",
+    "eslint-config-prettier": "10.1.8",
+    "eslint-plugin-astro": "1.4.0",
+    "globals": "17.12.0",
+    "prettier": "3.9.9",
+    "prettier-plugin-astro": "0.14.1",
+    "secretlint": "13.0.5",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.71.0"
+  },
+  "packageManager": "pnpm@10.27.0"
+}

@@ -1,0 +1,98 @@
+---
+// src/layouts/BlogLayout.astro
+import '../styles/global.css';
+import Navbar from '../components/home/Navbar.astro';
+import Footer from '../components/shared/Footer.astro';
+import BaseHead from '../components/BaseHead.astro';
+import { serializeJsonLd } from '../utils/json-ld';
+import { SITE_TITLE } from '../consts';
+
+export interface Props {
+  title: string;
+  description?: string;
+  image?: string | null;
+  type?: 'website' | 'article';
+  publishedTime?: Date;
+  modifiedTime?: Date;
+  author?: string;
+}
+
+const {
+  title,
+  description,
+  image,
+  type = 'website',
+  publishedTime,
+  modifiedTime,
+  author,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="pt-BR" class="dark scroll-smooth">
+  <head>
+    <BaseHead
+      title={`${title} | ${SITE_TITLE}`}
+      description={description || ''}
+      image={image}
+      type={type}
+      publishedTime={publishedTime}
+      modifiedTime={modifiedTime}
+      author={author}
+    />
+    {
+      type === 'article' && (
+        <script
+          type="application/ld+json"
+          set:html={serializeJsonLd({
+            '@context': 'https://schema.org',
+            '@type': 'BlogPosting',
+            headline: title,
+            description,
+            image: image ? new URL(image, Astro.site).href : undefined,
+            datePublished: publishedTime?.toISOString(),
+            dateModified: modifiedTime?.toISOString(),
+            author: {
+              '@type':
+                author?.toLowerCase() === SITE_TITLE.toLowerCase() ? 'Organization' : 'Person',
+              name: author || SITE_TITLE,
+            },
+            publisher: {
+              '@type': 'Organization',
+              name: SITE_TITLE,
+              url: Astro.site?.href,
+              logo: { '@type': 'ImageObject', url: new URL('/favicon.svg', Astro.site).href },
+            },
+            mainEntityOfPage: new URL(Astro.url.pathname, Astro.site).href,
+          })}
+        />
+      )
+    }
+    <style is:global>
+      .line-clamp-2 {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+
+      .no-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+      .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+    </style>
+  </head>
+  <body
+    class="bg-canvas dark:bg-canvas text-ink-deep dark:text-on-canvas transition-colors duration-300 antialiased"
+  >
+    <a class="skip-link" href="#conteudo-principal">Pular para o conteúdo principal</a>
+    <Navbar />
+    <main id="conteudo-principal" tabindex="-1">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

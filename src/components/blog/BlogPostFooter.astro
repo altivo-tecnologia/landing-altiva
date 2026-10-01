@@ -1,0 +1,14 @@
+---
+// src/components/blog/BlogPostFooter.astro
+import BlogShare from './BlogShare.astro';
+
+export interface Props {
+  className?: string;
+}
+
+const { className = '' } = Astro.props;
+---
+
+<div class={`mt-12 flex justify-end border-t border-line-dark pt-8 md:mt-16 md:pt-12 ${className}`}>
+  <BlogShare />
+</div>

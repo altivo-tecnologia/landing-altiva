@@ -1,0 +1,180 @@
+---
+import Container from '../shared/Container.astro';
+import { ArrowUpRight } from '@lucide/astro';
+
+const whatsappUrl = 'https://wa.me/5543988519983';
+const keywords = [
+  'Software personalizado',
+  'Automações',
+  'Integrações',
+  'Tecnologia aplicada à rotina',
+];
+---
+
+<section class="flex min-h-dvh flex-col overflow-hidden">
+  <div class="hero-first-panel flex min-h-[50dvh] flex-none flex-col bg-canvas text-on-canvas">
+    <Container class="flex w-full flex-1 flex-col justify-center pb-8 pt-20">
+      <h1 class="hero-title altivo-wordmark w-full text-right font-bold text-on-canvas">
+        opte por <br />pensar altivo<span class="text-primary">.</span>
+      </h1>
+    </Container>
+  </div>
+
+  <div class="keyword-led-panel" role="group" aria-label={keywords.join(', ')}>
+    <div class="keyword-led-viewport">
+      <div class="keyword-led-track" aria-hidden="true">
+        {
+          [keywords, keywords, keywords, keywords].map((groupKeywords) => (
+            <div class="keyword-led-group">
+              {groupKeywords.map((keyword) => (
+                <span class="keyword-led-item">{keyword}</span>
+              ))}
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-second-panel flex flex-1 items-center bg-surface py-10 text-ink sm:py-8">
+    <Container class="grid w-full gap-5 sm:gap-8 lg:grid-cols-2 lg:items-end lg:gap-8">
+      <h2
+        class="altivo-wordmark max-w-5xl text-[clamp(1.9rem,8vw,2.5rem)] font-bold leading-none sm:text-[clamp(2.3rem,7.2vw,5.2rem)] sm:leading-normal"
+      >
+        <span class="inline sm:block">mapeie,{' '}</span>
+        <span class="inline sm:block">personalize,</span><br class="sm:hidden" />
+        <span class="block">e cresça<span class="text-primary">.</span></span>
+      </h2>
+      <div class="max-w-[30rem]">
+        <p
+          class="mb-3 text-[0.9375rem] leading-[1.5] sm:mb-4 sm:text-lg sm:leading-relaxed md:text-xl"
+        >
+          Mapeamos sua operação, construímos novos processos através de softwares personalizados,
+          <br class="hidden md:block" /> e com isso, você aprimora a jornada da sua empresa!
+        </p>
+        <p class="text-[0.9375rem] leading-[1.5] sm:text-lg sm:leading-relaxed md:text-xl">
+          Seja estratégico na tomada de decisão.
+        </p>
+        <a
+          href={whatsappUrl}
+          target="_blank"
+          rel="noreferrer"
+          class="mt-8 inline-flex items-center gap-3 border-b border-ink pb-2 text-sm font-bold uppercase tracking-[0.12em] transition-colors hover:border-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink"
+        >
+          Pense Altivo
+          <span class="sr-only">(abre o WhatsApp em nova aba para conversar com a Altivo)</span>
+          <ArrowUpRight size={20} aria-hidden="true" />
+        </a>
+      </div>
+    </Container>
+  </div>
+</section>
+
+<style>
+  .hero-title {
+    font-size: clamp(3rem, 7vw, 9rem);
+    line-height: 1;
+    text-align: right;
+  }
+
+  .keyword-led-panel {
+    min-height: 3rem;
+    border-block: 1px solid var(--color-line-overlay);
+    background: var(--color-canvas);
+    color: var(--color-muted);
+  }
+
+  .keyword-led-viewport {
+    overflow: hidden;
+    padding-block: 0.75rem;
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      var(--color-mask) 4%,
+      var(--color-mask) 96%,
+      transparent
+    );
+  }
+
+  .hero-second-panel {
+    min-height: calc(50dvh - 3rem);
+  }
+
+  @media (max-width: 639px) {
+    .hero-first-panel {
+      min-height: 42dvh;
+    }
+
+    .hero-second-panel {
+      min-height: auto;
+      flex: none;
+    }
+  }
+
+  .keyword-led-track,
+  .keyword-led-group {
+    display: flex;
+    align-items: center;
+    width: max-content;
+  }
+
+  .keyword-led-track {
+    animation: keyword-led-scroll 24s linear infinite;
+  }
+
+  .keyword-led-group {
+    flex: none;
+    gap: 0;
+  }
+
+  .keyword-led-item {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    padding: 0.125rem 0;
+    font-family: ui-monospace, SFMono-Regular, monospace;
+    font-size: 0.75rem;
+    font-weight: 500;
+    line-height: 1.5;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .keyword-led-item::after {
+    content: '';
+    width: 0.3rem;
+    height: 0.3rem;
+    flex: none;
+    margin: 0 14px;
+    border-radius: 50%;
+    background: var(--color-primary);
+    opacity: 0.7;
+  }
+
+  .altivo-wordmark {
+    font-family: var(--font-display);
+    letter-spacing: -0.025em;
+  }
+
+  @keyframes keyword-led-scroll {
+    to {
+      transform: translate3d(-25%, 0, 0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .keyword-led-track {
+      animation: none;
+    }
+
+    .keyword-led-group + .keyword-led-group {
+      display: none;
+    }
+
+    .keyword-led-group {
+      flex-wrap: wrap;
+      width: 100%;
+      white-space: normal;
+    }
+  }
+</style>

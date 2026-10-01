@@ -1,0 +1,15 @@
+---
+import BlogListing from '../../components/blog/BlogListing.astro';
+import BlogLayout from '../../layouts/BlogLayout.astro';
+import { BLOG_PAGE_SIZE, getSortedBlogPosts } from '../../utils/blog';
+
+const posts = await getSortedBlogPosts();
+const totalPages = Math.ceil(posts.length / BLOG_PAGE_SIZE);
+---
+
+<BlogLayout
+  title="Projetos e ideias"
+  description="Artigos e projetos da Altivo Tecnologia: tecnologia aplicada à rotina de pequenas e médias empresas."
+>
+  <BlogListing posts={posts.slice(0, BLOG_PAGE_SIZE)} currentPage={1} totalPages={totalPages} />
+</BlogLayout>

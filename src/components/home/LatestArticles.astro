@@ -1,0 +1,120 @@
+---
+import { getSortedBlogPosts } from '../../utils/blog';
+import ArticleThumbnail from '../shared/ArticleThumbnail.astro';
+import Container from '../shared/Container.astro';
+
+const posts = (await getSortedBlogPosts()).slice(0, 6);
+---
+
+{
+  posts.length > 0 && (
+    <section
+      id="projetos"
+      class="scroll-mt-24 bg-surface py-20 text-ink md:py-28"
+      aria-labelledby="latest-articles-title"
+    >
+      <Container>
+        <header class="mb-12 grid gap-8 md:grid-cols-[1.5fr_0.8fr] md:items-start md:gap-12">
+          <h2
+            id="latest-articles-title"
+            class="altivo-wordmark max-w-4xl text-4xl font-bold leading-[1.02] tracking-tight md:text-5xl lg:text-5xl"
+          >
+            Projetos e escolhas altivas<span class="text-primary">.</span>
+          </h2>
+        </header>
+
+        <div
+          class="articles-grid"
+          data-count={posts.length}
+          data-tablet-orphan={posts.length > 1 && posts.length % 2 === 1}
+          data-desktop-orphan={posts.length % 3}
+        >
+          {posts.map((post) => (
+            <article class="article-card">
+              <a
+                href={`/blog/${post.id}`}
+                class="group flex flex-col focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink"
+              >
+                <ArticleThumbnail
+                  image={post.data.heroImage}
+                  title={post.data.title}
+                  className="mb-6"
+                  sizes="(max-width: 640px) calc(100vw - 3rem), (max-width: 1024px) 50vw, 33vw"
+                />
+                <h3 class="article-title altivo-wordmark mt-4 text-2xl font-bold leading-[1.08] transition-colors group-hover:underline group-hover:decoration-primary group-hover:decoration-2 group-hover:underline-offset-4 md:text-3xl">
+                  {post.data.title}
+                </h3>
+                <p class="mt-3 max-w-[75ch] leading-relaxed text-copy">{post.data.description}</p>
+              </a>
+            </article>
+          ))}
+        </div>
+      </Container>
+    </section>
+  )
+}
+
+<style>
+  .altivo-wordmark {
+    font-family: var(--font-display);
+    color: var(--color-canvas);
+  }
+
+  .articles-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    column-gap: clamp(1.5rem, 3vw, 3rem);
+    row-gap: 3rem;
+  }
+
+  .article-card {
+    min-width: 0;
+    padding-top: 1.5rem;
+  }
+
+  .article-title {
+    color: var(--color-canvas);
+    line-height: 1;
+  }
+
+  @media (min-width: 640px) {
+    .articles-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .article-card {
+      grid-column: span 2;
+    }
+
+    .articles-grid[data-count='1'] .article-card {
+      grid-column: 2 / span 2;
+    }
+
+    .articles-grid[data-tablet-orphan='true'] .article-card:last-child {
+      grid-column: 2 / span 2;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .articles-grid {
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+    }
+
+    .articles-grid[data-count='1'] .article-card {
+      grid-column: 3 / span 2;
+    }
+
+    .articles-grid[data-count='2'] .article-card {
+      grid-column: span 3;
+    }
+
+    .articles-grid[data-desktop-orphan='1'] .article-card:last-child {
+      grid-column: 3 / span 2;
+    }
+
+    .articles-grid[data-desktop-orphan='2'] .article-card:nth-last-child(2),
+    .articles-grid[data-desktop-orphan='2'] .article-card:last-child {
+      grid-column: span 3;
+    }
+  }
+</style>

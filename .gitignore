@@ -1,0 +1,16 @@
+node_modules/
+dist/
+docs/
+.astro/
+.env
+.env.*
+!.env.example
+
+.agents
+.aws
+.codex
+.serena
+.impeccable
+
+PRODUCT.md
+DESIGN.md

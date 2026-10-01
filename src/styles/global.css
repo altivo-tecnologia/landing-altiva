@@ -1,0 +1,101 @@
+@import '@fontsource-variable/source-sans-3';
+@import 'tailwindcss';
+
+@import './tokens.css';
+
+@variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  * {
+    @apply border-line-inverse dark:border-line-dark;
+  }
+
+  ::selection {
+    background-color: var(--color-primary);
+    color: var(--color-canvas);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+    scrollbar-color: var(--color-primary) transparent;
+    scrollbar-width: thin;
+  }
+
+  ::-webkit-scrollbar {
+    width: 0.75rem;
+    height: 0.75rem;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border: 3px solid transparent;
+    border-radius: 9999px;
+    background-color: var(--color-primary);
+    background-clip: padding-box;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: color-mix(in srgb, var(--color-primary) 84%, var(--color-canvas));
+  }
+
+  body {
+    @apply bg-canvas text-on-canvas antialiased;
+    font-family: var(--font-sans);
+  }
+
+  .skip-link {
+    position: fixed;
+    z-index: 100;
+    top: 1rem;
+    left: 1rem;
+    padding: 0.75rem 1rem;
+    transform: translateY(calc(-100% - 1.5rem));
+    border: 2px solid var(--color-canvas);
+    background: var(--color-primary);
+    color: var(--color-canvas);
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .skip-link:focus-visible {
+    transform: translateY(0);
+    outline: 3px solid var(--color-primary);
+    outline-offset: 3px;
+  }
+
+  main[id='conteudo-principal'] {
+    scroll-margin-top: 6rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+  }
+}
+
+.altivo-display {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.altivo-muted {
+  color: var(--color-muted);
+}
+
+.altivo-wordmark {
+  font-family: var(--font-display);
+  letter-spacing: -0.025em;
+  line-height: 0.9;
+}

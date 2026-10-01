@@ -1,0 +1,21 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/home/Navbar.astro';
+import Hero from '../components/home/Hero.astro';
+import ServiceOverview from '../components/home/ServiceOverview.astro';
+import LatestArticles from '../components/home/LatestArticles.astro';
+import Footer from '../components/shared/Footer.astro';
+---
+
+<Layout
+  title="altivo tecnologia | consultoria, software personalizado, automações e integrações para PMEs."
+  description="Consultoria para pequenas e médias empresas: mapeamento da operação, software personalizado, automações, integrações e evolução contínua."
+>
+  <Navbar />
+  <main id="conteudo-principal" tabindex="-1">
+    <Hero />
+    <ServiceOverview />
+    <LatestArticles />
+  </main>
+  <Footer />
+</Layout>

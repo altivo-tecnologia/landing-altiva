@@ -1,0 +1,125 @@
+---
+import Container from '../shared/Container.astro';
+import { Menu, X } from '@lucide/astro';
+---
+
+<header class="fixed top-0 z-50 w-full border-b border-surface/10 bg-canvas/90 backdrop-blur-md">
+  <Container class="flex h-20 items-center justify-between px-4 sm:px-6">
+    <a
+      href="/"
+      aria-label="Altivo Tecnologia — início"
+      class="flex items-center text-on-canvas focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+    >
+      <span
+        class="altivo-display text-xl font-bold lowercase tracking-tight sm:text-xl transition-colors hover:text-primary"
+      >
+        <span class="sm:hidden">altivo</span>
+        <span class="hidden sm:inline">altivo tecnologia</span>
+      </span>
+    </a>
+
+    <nav
+      aria-label="Navegação principal"
+      class="hidden items-center gap-2.5 sm:flex sm:gap-8 sm:text-sm"
+    >
+      <a
+        href="/#servicos"
+        class="font-semibold transition-colors hover:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+        >Serviços</a
+      >
+      <a
+        href="/blog/"
+        class="font-semibold transition-colors hover:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+        >Blog</a
+      >
+      <a
+        href="/links"
+        class="font-semibold transition-colors hover:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+      >
+        <span class="sm:hidden">Canais</span>
+        <span class="hidden sm:inline">Canais oficiais</span>
+      </a>
+    </nav>
+
+    <button
+      type="button"
+      class="flex size-12 items-center justify-center text-on-canvas transition-colors hover:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary sm:hidden"
+      aria-label="Abrir menu"
+      aria-expanded="false"
+      aria-controls="mobile-navigation"
+      data-menu-toggle
+    >
+      <Menu size={24} aria-hidden="true" data-menu-open-icon />
+      <X size={24} aria-hidden="true" class="hidden" data-menu-close-icon />
+    </button>
+  </Container>
+
+  <nav
+    id="mobile-navigation"
+    aria-label="Navegação principal móvel"
+    class="fixed inset-x-0 top-20 z-40 hidden min-h-[calc(100svh-5rem)] border-t border-surface/10 bg-canvas px-6 pb-[max(2rem,env(safe-area-inset-bottom))] pt-8 sm:hidden"
+    data-mobile-menu
+  >
+    <div class="mx-auto flex w-full max-w-7xl flex-col">
+      <a
+        href="/#servicos"
+        class="border-b border-surface/10 py-5 font-display text-3xl font-bold text-on-canvas transition-colors hover:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary"
+        data-menu-link>Serviços</a
+      >
+      <a
+        href="/blog/"
+        class="border-b border-surface/10 py-5 font-display text-3xl font-bold text-on-canvas transition-colors hover:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary"
+        data-menu-link>Blog</a
+      >
+      <a
+        href="/links"
+        class="border-b border-surface/10 py-5 font-display text-3xl font-bold text-on-canvas transition-colors hover:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary"
+        data-menu-link>Canais oficiais</a
+      >
+    </div>
+  </nav>
+
+  <noscript>
+    <nav aria-label="Navegação principal" class="flex flex-col gap-4 px-6 py-6 sm:hidden">
+      <a href="/#servicos" class="text-on-canvas underline">Serviços</a>
+      <a href="/blog/" class="text-on-canvas underline">Blog</a>
+      <a href="/links" class="text-on-canvas underline">Canais oficiais</a>
+    </nav>
+  </noscript>
+</header>
+
+<script>
+  const menuToggle = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
+  const mobileMenu = document.querySelector<HTMLElement>('[data-mobile-menu]');
+  const openIcon = document.querySelector<SVGElement>('[data-menu-open-icon]');
+  const closeIcon = document.querySelector<SVGElement>('[data-menu-close-icon]');
+
+  if (menuToggle && mobileMenu && openIcon && closeIcon) {
+    const setMenuOpen = (isOpen: boolean) => {
+      menuToggle.setAttribute('aria-expanded', String(isOpen));
+      menuToggle.setAttribute('aria-label', isOpen ? 'Fechar menu' : 'Abrir menu');
+      mobileMenu.classList.toggle('hidden', !isOpen);
+      openIcon.classList.toggle('hidden', isOpen);
+      closeIcon.classList.toggle('hidden', !isOpen);
+    };
+
+    menuToggle.addEventListener('click', () => {
+      setMenuOpen(menuToggle.getAttribute('aria-expanded') !== 'true');
+    });
+
+    mobileMenu.querySelectorAll('[data-menu-link]').forEach((link) => {
+      link.addEventListener('click', () => setMenuOpen(false));
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && menuToggle.getAttribute('aria-expanded') === 'true') {
+        setMenuOpen(false);
+        menuToggle.focus();
+      }
+    });
+
+    window.matchMedia('(min-width: 640px)').addEventListener('change', (event) => {
+      if (event.matches) setMenuOpen(false);
+    });
+  }
+</script>

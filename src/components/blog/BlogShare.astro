@@ -1,0 +1,52 @@
+---
+import { Check, Copy } from '@lucide/astro';
+
+export interface Props {
+  className?: string;
+}
+
+const { className = '' } = Astro.props;
+---
+
+<div class={`flex items-center gap-6 ${className}`}>
+  <button
+    type="button"
+    class="inline-flex min-h-11 min-w-40 shrink-0 items-center justify-center gap-2 whitespace-nowrap border border-copy-muted px-4 py-2 text-sm font-semibold text-on-canvas transition-colors hover:border-primary hover:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+    data-copy-link
+    aria-label="Copiar link do artigo"
+    title="Copiar link"
+  >
+    <Copy size={18} aria-hidden="true" data-copy-icon />
+    <Check size={18} class="hidden" aria-hidden="true" data-copied-icon />
+    <span data-copy-label>Copiar link</span>
+  </button>
+  <span class="sr-only" aria-live="polite" data-copy-feedback></span>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('[data-copy-link]').forEach((button) => {
+    button.addEventListener('click', async () => {
+      const feedback = button.parentElement?.querySelector<HTMLElement>('[data-copy-feedback]');
+      const label = button.querySelector<HTMLElement>('[data-copy-label]');
+      const copyIcon = button.querySelector<SVGElement>('[data-copy-icon]');
+      const copiedIcon = button.querySelector<SVGElement>('[data-copied-icon]');
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        if (label) label.textContent = 'Link copiado';
+        button.setAttribute('aria-label', 'Link copiado');
+        copyIcon?.classList.add('hidden');
+        copiedIcon?.classList.remove('hidden');
+        if (feedback) feedback.textContent = 'Link copiado para a área de transferência.';
+        window.setTimeout(() => {
+          if (label) label.textContent = 'Copiar link';
+          button.setAttribute('aria-label', 'Copiar link do artigo');
+          copyIcon?.classList.remove('hidden');
+          copiedIcon?.classList.add('hidden');
+          if (feedback) feedback.textContent = '';
+        }, 2500);
+      } catch {
+        if (feedback) feedback.textContent = 'Não foi possível copiar o link.';
+      }
+    });
+  });
+</script>

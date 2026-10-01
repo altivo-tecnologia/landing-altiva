@@ -1,0 +1,247 @@
+---
+import Container from './Container.astro';
+import Icon from './Icon.astro';
+
+const circularText = Array.from('+ altivo + tecnologia ');
+
+const navigation = [
+  { label: 'Início', href: '/' },
+  { label: 'Serviços', href: '/#servicos' },
+  { label: 'Blog', href: '/blog/' },
+  { label: 'Privacidade', href: '/privacy' },
+];
+
+const channels = [
+  { label: 'Instagram', href: 'https://instagram.com/altivo.tec/', icon: 'brand-instagram' },
+  { label: 'WhatsApp', href: 'https://wa.me/5543988519983', icon: 'brand-whatsapp' },
+  { label: 'E-mail', href: 'mailto:suporte@altivo.net.br', icon: 'mail' },
+];
+---
+
+<footer class="footer">
+  <Container size="xl">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-seal-frame" role="img" aria-label="Altivo Tecnologia">
+          <span class="footer-seal" aria-hidden="true">
+            {
+              circularText.map((letter, index) => (
+                <span
+                  class:list={['footer-seal-letter', letter === '+' && 'footer-seal-accent']}
+                  style={`--letter-angle: ${(360 / circularText.length) * index}deg`}
+                >
+                  {letter === ' ' ? '\u00a0' : letter}
+                </span>
+              ))
+            }
+          </span>
+        </div>
+      </div>
+
+      <nav class="footer-navigation" aria-label="Navegação do rodapé">
+        <h2 class="footer-heading">Navegação</h2>
+        <ul class="footer-link-list">
+          {
+            navigation.map((item) => (
+              <li>
+                <a class="footer-link" href={item.href}>
+                  {item.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+
+      <nav class="footer-channels" aria-label="Redes sociais e canais oficiais">
+        <h2 class="footer-heading">Redes e contato</h2>
+        <ul class="footer-link-list">
+          {
+            channels.map((channel) => (
+              <li>
+                <a
+                  class="footer-link footer-channel-link"
+                  href={channel.href}
+                  target={channel.href.startsWith('http') ? '_blank' : undefined}
+                  rel={channel.href.startsWith('http') ? 'noreferrer' : undefined}
+                >
+                  <Icon name={channel.icon} size={18} class="footer-channel-icon" />
+                  {channel.label}
+                  {channel.href.startsWith('http') && (
+                    <span class="sr-only">(abre em nova aba)</span>
+                  )}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+    </div>
+  </Container>
+</footer>
+
+<style>
+  .footer {
+    padding-block: clamp(3rem, 5vw, 5rem);
+    border-top: 1px solid var(--color-line-overlay);
+    background: var(--color-canvas);
+    color: var(--color-on-canvas);
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: 'brand' 'navigation' 'channels';
+    text-align: center;
+    align-items: start;
+    gap: 2.5rem 1.5rem;
+  }
+
+  .footer-navigation {
+    grid-area: navigation;
+  }
+
+  .footer-channels {
+    grid-area: channels;
+  }
+
+  .footer-brand {
+    grid-area: brand;
+    justify-self: center;
+  }
+
+  .footer-seal-frame {
+    --seal-size: clamp(15rem, 28vw, 24rem);
+    display: block;
+    width: var(--seal-size);
+    max-width: 100%;
+    aspect-ratio: 1;
+    overflow: hidden;
+    border-radius: 50%;
+    color: var(--color-on-canvas);
+  }
+
+  .footer-seal {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    animation: footer-seal-rotation 29s linear infinite;
+    transform-origin: center;
+  }
+
+  .footer-seal-letter {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: block;
+    width: 1em;
+    height: 1em;
+    margin: -0.5em;
+    color: currentColor;
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    transform: rotate(var(--letter-angle)) translateY(calc(var(--seal-size) * -0.41));
+    transform-origin: center;
+  }
+
+  .footer-seal-accent {
+    color: var(--color-primary);
+  }
+
+  .footer-heading {
+    color: var(--color-primary);
+    font-size: clamp(1.5rem, 2.2vw, 2rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+  }
+
+  .footer-link-list {
+    display: grid;
+    justify-items: center;
+    gap: 0.75rem;
+    margin-top: 1.25rem;
+  }
+
+  .footer-link {
+    font-weight: 600;
+    color: var(--color-on-canvas-copy);
+    text-decoration: none;
+    transition: color 180ms ease;
+  }
+
+  .footer-link:hover,
+  .footer-link:focus-visible {
+    color: var(--color-primary);
+  }
+
+  .footer-link:focus-visible {
+    border-radius: 2px;
+    outline: 2px solid var(--color-primary);
+    outline-offset: 4px;
+  }
+
+  .footer-channel-link {
+    display: inline-flex;
+    min-height: 2rem;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .footer-channel-icon {
+    color: var(--color-muted);
+  }
+
+  @media (max-width: 639px) {
+    .footer-seal-frame {
+      --seal-size: min(18rem, calc(100vw - 3rem));
+    }
+  }
+
+  @media (min-width: 640px) {
+    .footer-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-areas: 'brand brand' 'navigation channels';
+      row-gap: 3rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .footer-grid {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.4fr);
+      grid-template-areas: 'navigation channels brand';
+      text-align: left;
+      column-gap: clamp(2rem, 5vw, 5rem);
+      align-items: center;
+      row-gap: 0;
+    }
+
+    .footer-link-list {
+      justify-items: start;
+    }
+
+    .footer-brand {
+      justify-self: end;
+    }
+  }
+
+  @keyframes footer-seal-rotation {
+    to {
+      transform: rotate(1turn);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .footer-seal {
+      animation: none;
+    }
+
+    .footer-link {
+      transition: none;
+    }
+  }
+</style>

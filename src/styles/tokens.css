@@ -1,0 +1,36 @@
+@theme {
+  --color-primary: oklch(0.78 0.14 88);
+  --color-primary-soft: oklch(0.88 0.12 88);
+  --color-primary-hover: #e8c653;
+  --color-brand-detail: #c9a94e;
+  --color-canvas: #020617;
+  --color-surface: #fff;
+  --color-surface-soft: #f2f2f2;
+  --color-surface-raised: #0f172a;
+  --color-ink: var(--color-canvas);
+  --color-ink-deep: var(--color-surface-raised);
+  --color-copy: #334155;
+  --color-copy-strong: #1e293b;
+  --color-copy-muted: #475569;
+  --color-on-canvas: #f1f5f9;
+  --color-on-canvas-copy: #cbd5e1;
+  --color-on-canvas-muted: #94a3b8;
+  --color-muted: oklch(0.76 0.018 255);
+  --color-line: var(--color-on-canvas-copy);
+  --color-line-muted: var(--color-on-canvas-muted);
+  --color-line-strong: var(--color-copy);
+  --color-line-dark: var(--color-copy-strong);
+  --color-line-inverse: var(--color-on-canvas);
+  --color-mask: #000;
+  --color-line-overlay: rgb(255 255 255 / 12%);
+  --color-line-prose: rgb(255 255 255 / 18%);
+  --color-overlay-soft: rgb(255 255 255 / 5%);
+  --color-overlay-hover: rgb(255 255 255 / 9%);
+  --font-sans: 'Source Sans 3', system-ui, -apple-system, sans-serif;
+  --font-display: Georgia, 'Times New Roman', serif;
+  --radius-default: 0.125rem;
+  --radius-lg: 0.25rem;
+  --radius-xl: 0.5rem;
+  --radius-full: 0.75rem;
+  --shadow-brand: 0 8px 24px rgb(201 169 78 / 16%);
+}

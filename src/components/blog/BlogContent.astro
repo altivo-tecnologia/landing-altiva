@@ -1,0 +1,138 @@
+---
+export interface Props {
+  className?: string;
+}
+
+const { className = '' } = Astro.props;
+---
+
+<div class={`blog-prose ${className}`}>
+  <slot />
+</div>
+
+<style is:global>
+  .blog-prose {
+    max-width: 72ch;
+    margin-inline: auto;
+    color: var(--color-on-canvas-copy);
+    font-size: clamp(1.125rem, 1.8vw, 1.25rem);
+    line-height: 1.7;
+  }
+  .blog-prose p {
+    margin: 0 0 1.5em;
+  }
+  .blog-prose > p:first-of-type {
+    color: var(--color-on-canvas);
+    font-size: 1.15em;
+    line-height: 1.55;
+  }
+  .blog-prose h2,
+  .blog-prose h3 {
+    color: var(--color-on-canvas);
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.08;
+  }
+  .blog-prose h2 {
+    margin: 2.5rem 0 0.875rem;
+    font-size: clamp(1.75rem, 4vw, 3rem);
+  }
+  .blog-prose h3 {
+    margin: 2rem 0 0.75rem;
+    font-size: 1.6rem;
+  }
+  .blog-prose strong {
+    color: var(--color-on-canvas);
+    font-weight: 700;
+  }
+  .blog-prose a {
+    color: var(--color-primary);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+  .blog-prose a:hover {
+    color: var(--color-surface);
+  }
+  .blog-prose a:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 4px;
+  }
+  .blog-prose ul,
+  .blog-prose ol {
+    margin: 0 0 2rem;
+    padding-left: 1.5rem;
+  }
+  .blog-prose ul {
+    list-style: disc;
+  }
+  .blog-prose ol {
+    list-style: decimal;
+  }
+  .blog-prose li {
+    padding-left: 0.25rem;
+    margin-bottom: 0.65rem;
+  }
+  .blog-prose li::marker {
+    color: var(--color-primary);
+  }
+  .blog-prose figure {
+    margin: 0 0 2.5rem;
+  }
+  .blog-prose p:has(> img) {
+    margin: 0 0 2.5rem;
+    padding: 0.625rem;
+    background: var(--color-surface);
+  }
+  .blog-prose p:has(> img) > img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .blog-prose .blog-visual-card {
+    padding: 0.625rem;
+    background: var(--color-surface);
+  }
+  .blog-prose figure img {
+    display: block;
+    width: 100%;
+    height: auto;
+    background: var(--color-surface-raised);
+  }
+  .blog-prose figcaption {
+    margin-top: 0.75rem;
+    color: var(--color-on-canvas-muted);
+    font-size: 0.85rem;
+    line-height: 1.4;
+  }
+  .blog-prose hr {
+    margin: 3rem 0;
+    border: 0;
+    border-top: 1px solid var(--color-line-prose);
+  }
+  .blog-prose blockquote {
+    margin: 2.5rem 0;
+    padding-left: 1.25rem;
+    border-left: 1px solid var(--color-primary);
+    color: var(--color-on-canvas);
+    font-family: var(--font-display);
+    font-size: 1.45rem;
+    line-height: 1.4;
+  }
+  @media (min-width: 768px) {
+    .blog-prose h2 {
+      margin-top: 3rem;
+      margin-bottom: 1rem;
+    }
+    .blog-prose figure {
+      margin-bottom: 3.5rem;
+    }
+    .blog-prose p:has(> img) {
+      margin-bottom: 3.5rem;
+      padding: 1.5rem;
+    }
+    .blog-prose .blog-visual-card {
+      padding: 1.5rem;
+    }
+  }
+</style>
