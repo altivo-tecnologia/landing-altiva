@@ -39,27 +39,25 @@ const keywords = [
   <div class="hero-second-panel flex flex-1 items-center bg-surface py-10 text-ink sm:py-8">
     <Container class="grid w-full gap-5 sm:gap-8 lg:grid-cols-2 lg:items-end lg:gap-8">
       <h2
-        class="altivo-wordmark max-w-5xl text-[clamp(1.9rem,8vw,2.5rem)] font-bold leading-none sm:text-[clamp(2.3rem,7.2vw,5.2rem)] sm:leading-normal"
+        class="altivo-wordmark max-w-5xl text-[clamp(1.9rem,8vw,2.5rem)] font-bold leading-(--leading-display) sm:text-[clamp(2.3rem,5.2vw,5.2rem)]"
       >
         <span class="inline sm:block">mapeie,{' '}</span>
         <span class="inline sm:block">personalize,</span><br class="sm:hidden" />
         <span class="block">e cresça<span class="text-primary">.</span></span>
       </h2>
       <div class="max-w-[30rem]">
-        <p
-          class="mb-3 text-[0.9375rem] leading-[1.5] sm:mb-4 sm:text-lg sm:leading-relaxed md:text-xl"
-        >
+        <p class="mb-3 text-[0.9375rem] leading-(--leading-copy) sm:mb-4 sm:text-lg md:text-xl">
           Mapeamos sua operação, construímos novos processos através de softwares personalizados,
           <br class="hidden md:block" /> e com isso, você aprimora a jornada da sua empresa!
         </p>
-        <p class="text-[0.9375rem] leading-[1.5] sm:text-lg sm:leading-relaxed md:text-xl">
+        <p class="text-[0.9375rem] leading-(--leading-copy) sm:text-lg md:text-xl">
           Seja estratégico na tomada de decisão.
         </p>
         <a
           href={whatsappUrl}
           target="_blank"
           rel="noreferrer"
-          class="mt-8 inline-flex items-center gap-3 border-b border-ink pb-2 text-sm font-bold uppercase tracking-[0.12em] transition-colors hover:border-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink"
+          class="mt-8 inline-flex items-center gap-3 border-b border-ink pb-2 text-sm font-bold uppercase tracking-[0.12em] transition-colors hover:border-primary hover:text-primary focus-visible:border-primary focus-visible:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink"
         >
           Pense Altivo
           <span class="sr-only">(abre o WhatsApp em nova aba para conversar com a Altivo)</span>
@@ -72,8 +70,8 @@ const keywords = [
 
 <style>
   .hero-title {
-    font-size: clamp(3rem, 7vw, 9rem);
-    line-height: 1;
+    font-size: clamp(3rem, 6.5vw, 8.5rem);
+    line-height: var(--leading-display);
     text-align: right;
   }
 
@@ -101,6 +99,10 @@ const keywords = [
   }
 
   @media (max-width: 639px) {
+    .hero-title {
+      font-size: clamp(2rem, 7vw, 3rem);
+    }
+
     .hero-first-panel {
       min-height: 42dvh;
     }
@@ -132,7 +134,7 @@ const keywords = [
     flex: none;
     align-items: center;
     padding: 0.125rem 0;
-    font-family: ui-monospace, SFMono-Regular, monospace;
+    font-family: var(--font-sans);
     font-size: 0.75rem;
     font-weight: 500;
     line-height: 1.5;
@@ -153,7 +155,7 @@ const keywords = [
 
   .altivo-wordmark {
     font-family: var(--font-display);
-    letter-spacing: -0.025em;
+    letter-spacing: -0.015em;
   }
 
   @keyframes keyword-led-scroll {

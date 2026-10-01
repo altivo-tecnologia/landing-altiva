@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import displayFontUrl from '@fontsource/noto-serif/files/noto-serif-latin-700-normal.woff2?url';
 import type { ImageMetadata } from 'astro';
 import { serializeJsonLd } from '../utils/json-ld';
 import { SITE_TITLE } from '../consts';
@@ -39,7 +40,7 @@ const imageUrl = new URL(
 const socialImageAlt =
   imageAlt ??
   (isDefaultImage
-    ? 'Altivo Tecnologia — opte por pensar altivo. Mapeie, personalize, e cresça.'
+    ? 'Altivo Tecnologia - opte por pensar altivo. Mapeie, personalize, e cresça.'
     : title);
 const imageWidth = isDefaultImage
   ? 1200
@@ -55,6 +56,7 @@ const imageHeight = isDefaultImage
 
 <!-- Global Metadata -->
 <meta charset="utf-8" />
+<link rel="preload" href={displayFontUrl} as="font" type="font/woff2" crossorigin />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <link rel="icon" href="/favicon.ico" />

@@ -26,8 +26,10 @@
   --color-line-prose: rgb(255 255 255 / 18%);
   --color-overlay-soft: rgb(255 255 255 / 5%);
   --color-overlay-hover: rgb(255 255 255 / 9%);
-  --font-sans: 'Source Sans 3', system-ui, -apple-system, sans-serif;
-  --font-display: Georgia, 'Times New Roman', serif;
+  --font-sans: 'Source Sans 3 Variable', system-ui, -apple-system, sans-serif;
+  --font-display: 'Noto Serif', serif;
+  --leading-display: 1.15;
+  --leading-copy: 1.5;
   --radius-default: 0.125rem;
   --radius-lg: 0.25rem;
   --radius-xl: 0.5rem;
