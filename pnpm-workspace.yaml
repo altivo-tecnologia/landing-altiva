@@ -12,3 +12,9 @@ overrides:
   undici@>=8.0.0 <8.12.2: '>=8.12.2'
   vite@>=8.3.0 <=8.3.2: '>=8.3.3'
   zod@<4.6.6: '>=4.6.6'
+
+packageExtensions:
+  # astro2tsx builds against matching @emnapi/core and @emnapi/runtime versions.
+  '@astrojs/astro2tsx@0.1.2':
+    dependencies:
+      '@emnapi/runtime': '1.11.3'
